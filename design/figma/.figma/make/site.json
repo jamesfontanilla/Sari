@@ -1,0 +1,11 @@
+{
+  "title": "Sari",
+  "description": "Helps Filipino sari-sari store owners manage sales, debts, inventory, and business insights via voice, camera, and offline-friendly mobile app.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

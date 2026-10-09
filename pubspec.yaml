@@ -68,6 +68,8 @@ flutter:
   assets:
     - assets/models/
     - assets/sounds/
+    - assets/sari/
+    - assets/icons/
 
   # assets:
   #   - images/a_dot_burr.jpeg

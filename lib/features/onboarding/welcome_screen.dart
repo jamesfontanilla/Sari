@@ -108,21 +108,21 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                             ),
                           ],
                         ),
-                        child: const Row(
+                        child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
                               '🏪 Sari',
-                              style: TextStyle(
+                              style: SariTheme.wordmark(
                                 fontSize: 24,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w900,
                                 color: SariColors.orange,
                               ),
                             ),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             Text(
                               '· AI Tindera',
-                              style: TextStyle(
+                              style: SariTheme.body(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
                                 color: SariColors.ink,
@@ -168,9 +168,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                       child: Text(
                         messages[_messageIndex],
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
+                        style: SariTheme.heading(
                           fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w700,
                           color: SariColors.ink,
                           height: 1.3,
                         ),

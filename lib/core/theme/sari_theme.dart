@@ -23,6 +23,12 @@ class SariColors {
   static const Color yellowSoft = Color(0xFFFFF4D6);
 }
 
+class SariFonts {
+  static const String inter = 'Inter';
+  static const String plusJakartaSans = 'Plus Jakarta Sans';
+  static const String nunito = 'Nunito';
+}
+
 class SariTheme {
   static ThemeData get lightTheme {
     return ThemeData(
@@ -35,7 +41,22 @@ class SariTheme {
         error: SariColors.red,
         surface: SariColors.cream,
       ),
-      fontFamily: 'sans-serif',
+      fontFamily: SariFonts.inter,
+      textTheme: const TextTheme(
+        displayLarge: TextStyle(fontFamily: SariFonts.nunito, fontWeight: FontWeight.w900),
+        headlineLarge: TextStyle(fontFamily: SariFonts.plusJakartaSans, fontWeight: FontWeight.w800),
+        headlineMedium: TextStyle(fontFamily: SariFonts.plusJakartaSans, fontWeight: FontWeight.w800),
+        headlineSmall: TextStyle(fontFamily: SariFonts.plusJakartaSans, fontWeight: FontWeight.w700),
+        titleLarge: TextStyle(fontFamily: SariFonts.plusJakartaSans, fontWeight: FontWeight.w800),
+        titleMedium: TextStyle(fontFamily: SariFonts.plusJakartaSans, fontWeight: FontWeight.w700),
+        titleSmall: TextStyle(fontFamily: SariFonts.plusJakartaSans, fontWeight: FontWeight.w600),
+        bodyLarge: TextStyle(fontFamily: SariFonts.inter, fontWeight: FontWeight.normal),
+        bodyMedium: TextStyle(fontFamily: SariFonts.inter, fontWeight: FontWeight.normal),
+        bodySmall: TextStyle(fontFamily: SariFonts.inter, fontWeight: FontWeight.normal),
+        labelLarge: TextStyle(fontFamily: SariFonts.inter, fontWeight: FontWeight.w700),
+        labelMedium: TextStyle(fontFamily: SariFonts.inter, fontWeight: FontWeight.w600),
+        labelSmall: TextStyle(fontFamily: SariFonts.inter, fontWeight: FontWeight.w500),
+      ),
       appBarTheme: const AppBarTheme(
         backgroundColor: SariColors.cream,
         foregroundColor: SariColors.ink,
@@ -43,9 +64,10 @@ class SariTheme {
         scrolledUnderElevation: 0,
         centerTitle: false,
         titleTextStyle: TextStyle(
+          fontFamily: SariFonts.plusJakartaSans,
           color: SariColors.ink,
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
+          fontSize: 18,
+          fontWeight: FontWeight.w800,
         ),
       ),
       cardTheme: CardThemeData(
@@ -61,6 +83,66 @@ class SariTheme {
         color: SariColors.border,
         thickness: 1,
       ),
+    );
+  }
+
+  static TextStyle heading({
+    double fontSize = 18,
+    FontWeight fontWeight = FontWeight.w800,
+    Color color = SariColors.ink,
+    double? height,
+    double? letterSpacing,
+  }) {
+    return TextStyle(
+      fontFamily: SariFonts.plusJakartaSans,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      color: color,
+      height: height,
+      letterSpacing: letterSpacing,
+    );
+  }
+
+  static TextStyle body({
+    double fontSize = 14,
+    FontWeight fontWeight = FontWeight.normal,
+    Color color = SariColors.ink,
+    double? height,
+    double? letterSpacing,
+  }) {
+    return TextStyle(
+      fontFamily: SariFonts.inter,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      color: color,
+      height: height,
+      letterSpacing: letterSpacing,
+    );
+  }
+
+  static TextStyle money({
+    double fontSize = 22,
+    FontWeight fontWeight = FontWeight.w800,
+    Color color = SariColors.ink,
+  }) {
+    return TextStyle(
+      fontFamily: SariFonts.plusJakartaSans,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      color: color,
+    );
+  }
+
+  static TextStyle wordmark({
+    double fontSize = 24,
+    FontWeight fontWeight = FontWeight.w900,
+    Color color = SariColors.orange,
+  }) {
+    return TextStyle(
+      fontFamily: SariFonts.nunito,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      color: color,
     );
   }
 

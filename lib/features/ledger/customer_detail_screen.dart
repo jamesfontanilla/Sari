@@ -322,9 +322,9 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                       const SizedBox(height: 14),
                       Text(
                         currency.format(_currentCustomer.utangBalance),
-                        style: TextStyle(
+                        style: SariTheme.money(
                           fontSize: 34,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w800,
                           color: isOwing ? SariColors.red : SariColors.green,
                         ),
                       ),

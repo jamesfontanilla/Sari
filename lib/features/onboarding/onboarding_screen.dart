@@ -127,9 +127,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         // Title
                         Text(
                           s['title'] as String,
-                          style: const TextStyle(
+                          style: SariTheme.heading(
                             fontSize: 26,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w800,
                             color: SariColors.ink,
                           ),
                         ),
@@ -139,7 +139,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         Text(
                           s['body'] as String,
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
+                          style: SariTheme.body(
                             fontSize: 15,
                             color: SariColors.muted,
                             height: 1.4,
@@ -165,7 +165,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           child: Text(
                             s['example'] as String,
                             textAlign: TextAlign.center,
-                            style: const TextStyle(
+                            style: SariTheme.body(
                               fontSize: 13,
                               fontWeight: FontWeight.bold,
                               color: SariColors.orangeDark,

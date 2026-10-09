@@ -479,10 +479,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   // Date Eyebrow
                   Text(
                     tagalogDateEyebrow(now),
-                    style: const TextStyle(
+                    style: SariTheme.heading(
                       color: SariColors.muted,
-                      fontSize: 11,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 10.5,
+                      fontWeight: FontWeight.w700,
                       letterSpacing: 0.8,
                     ),
                   ),
@@ -492,15 +492,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   RichText(
                     text: TextSpan(
                       text: '${tagalogGreeting(now)}, ',
-                      style: const TextStyle(
+                      style: SariTheme.heading(
                         color: SariColors.ink,
                         fontSize: 22,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w500,
                       ),
-                      children: const [
+                      children: [
                         TextSpan(
                           text: 'Aling Maria!',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: SariTheme.heading(
+                            color: SariColors.ink,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w800,
+                          ),
                         ),
                       ],
                     ),
@@ -566,9 +570,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   const SizedBox(height: 20),
 
                   // Section: Mabilis na Gawain (5 Action Tiles)
-                  const Text(
+                  Text(
                     'Mabilis na Gawain',
-                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: SariColors.ink),
+                    style: SariTheme.heading(fontSize: 15, fontWeight: FontWeight.w800, color: SariColors.ink),
                   ),
                   const SizedBox(height: 12),
                   Row(
@@ -639,9 +643,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
+                            Text(
                               'Paglago ng benta',
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: SariColors.ink),
+                              style: SariTheme.heading(fontWeight: FontWeight.w800, fontSize: 15, color: SariColors.ink),
                             ),
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
@@ -697,13 +701,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Row(
+                      Row(
                         children: [
-                          Icon(Icons.warning_amber_rounded, color: SariColors.orange, size: 20),
-                          SizedBox(width: 6),
+                          const Icon(Icons.warning_amber_rounded, color: SariColors.orange, size: 20),
+                          const SizedBox(width: 6),
                           Text(
                             'Low Stock',
-                            style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: SariColors.ink),
+                            style: SariTheme.heading(fontSize: 15, fontWeight: FontWeight.w800, color: SariColors.ink),
                           ),
                         ],
                       ),
@@ -860,25 +864,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
           children: [
             Text(
               label,
-              style: TextStyle(
+              style: SariTheme.heading(
                 fontSize: 13,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w700,
                 color: isGood ? SariColors.green : SariColors.ink,
               ),
             ),
             const SizedBox(height: 6),
             Text(
               amount,
-              style: TextStyle(
+              style: SariTheme.money(
                 fontSize: 22,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w800,
                 color: accentColor,
               ),
             ),
             const SizedBox(height: 4),
             Text(
               note,
-              style: TextStyle(
+              style: SariTheme.heading(
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
                 color: accentColor,

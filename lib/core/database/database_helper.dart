@@ -334,4 +334,32 @@ class DatabaseHelper {
     });
     await _seedStarterData(db);
   }
+
+  // App settings & Onboarding state
+  Future<bool> isOnboarded() async {
+    final db = await instance.database;
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS app_settings (
+        key TEXT PRIMARY KEY,
+        value TEXT
+      )
+    ''');
+    final res = await db.query('app_settings', where: 'key = ?', whereArgs: ['onboarded']);
+    return res.isNotEmpty && res.first['value'] == 'true';
+  }
+
+  Future<void> setOnboarded(bool value) async {
+    final db = await instance.database;
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS app_settings (
+        key TEXT PRIMARY KEY,
+        value TEXT
+      )
+    ''');
+    await db.insert(
+      'app_settings',
+      {'key': 'onboarded', 'value': value ? 'true' : 'false'},
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
 }

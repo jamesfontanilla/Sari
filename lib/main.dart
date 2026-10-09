@@ -11,6 +11,7 @@ import 'core/theme/sari_theme.dart';
 import 'features/scanner/scanner_screen.dart';
 import 'features/ledger/customer_detail_screen.dart';
 import 'features/settings/settings_screen.dart';
+import 'features/onboarding/welcome_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +27,25 @@ class SariApp extends StatelessWidget {
       title: 'Sari',
       debugShowCheckedModeBanner: false,
       theme: SariTheme.lightTheme,
-      home: const MainNavigationShell(),
+      home: FutureBuilder<bool>(
+        future: DatabaseHelper.instance.isOnboarded(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Scaffold(
+              backgroundColor: SariColors.cream,
+              body: Center(
+                child: CircularProgressIndicator(color: SariColors.orange),
+              ),
+            );
+          }
+          final isOnboarded = snapshot.data ?? false;
+          if (isOnboarded) {
+            return const MainNavigationShell();
+          } else {
+            return const WelcomeScreen();
+          }
+        },
+      ),
     );
   }
 }

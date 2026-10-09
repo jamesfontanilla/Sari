@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../core/database/database_helper.dart';
 import '../../core/services/speech_service.dart';
 import '../../core/theme/sari_theme.dart';
+import '../onboarding/onboarding_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   final VoidCallback onDataReset;
@@ -268,12 +269,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   subtitle: const Text('3 hakbang lang para magsimula', style: TextStyle(fontSize: 12, color: SariColors.muted)),
                   trailing: const Icon(Icons.chevron_right, size: 18, color: SariColors.muted),
                   onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Sari Tutorial: 1. Pindutin ang Mic. 2. Sabihin ang utang/benta. 3. I-tap ang I-record!'),
-                        backgroundColor: SariColors.orange,
-                        behavior: SnackBarBehavior.floating,
-                      ),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (ctx) => const OnboardingScreen(isReplay: true)),
                     );
                   },
                 ),

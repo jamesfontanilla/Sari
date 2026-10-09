@@ -5,6 +5,7 @@ import '../../core/models/customer.dart';
 import '../../core/models/transaction.dart';
 import '../../core/services/speech_service.dart';
 import '../../core/services/audio_feedback_service.dart';
+import '../../core/theme/sari_theme.dart';
 
 class CustomerDetailScreen extends StatefulWidget {
   final Customer customer;
@@ -51,12 +52,14 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-      ),
-      builder: (ctx) => Padding(
+      backgroundColor: Colors.transparent,
+      builder: (ctx) => Container(
+        decoration: const BoxDecoration(
+          color: SariColors.cream,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+        ),
         padding: EdgeInsets.only(
-          bottom: MediaQuery.of(ctx).viewInsets.bottom + 20,
+          bottom: MediaQuery.of(ctx).viewInsets.bottom + 24,
           left: 20,
           right: 20,
           top: 24,
@@ -65,56 +68,80 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            Center(
+              child: Container(
+                width: 44,
+                height: 5,
+                decoration: BoxDecoration(
+                  color: SariColors.border,
+                  borderRadius: BorderRadius.circular(99),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
             Row(
               children: [
-                const CircleAvatar(
-                  backgroundColor: Color(0xFFDCFCE7),
-                  child: Icon(Icons.payments_rounded, color: Color(0xFF16A34A)),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: SariColors.greenSoft,
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: const Icon(Icons.payments_rounded, color: SariColors.green, size: 24),
                 ),
                 const SizedBox(width: 12),
-                Text(
-                  'Magbayad si ${_currentCustomer.name}',
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Magbayad si ${_currentCustomer.name}',
+                        style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: SariColors.ink),
+                      ),
+                      Text(
+                        'Kasalukuyang Utang: ${currency.format(_currentCustomer.utangBalance)}',
+                        style: const TextStyle(color: SariColors.red, fontWeight: FontWeight.bold, fontSize: 13),
+                      ),
+                    ],
+                  ),
                 ),
               ],
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Natitirang Utang: ${currency.format(_currentCustomer.utangBalance)}',
-              style: const TextStyle(color: Color(0xFFDC2626), fontWeight: FontWeight.bold, fontSize: 15),
             ),
             const SizedBox(height: 16),
             Wrap(
               spacing: 8,
+              runSpacing: 8,
               children: [50.0, 100.0, 200.0, _currentCustomer.utangBalance].where((v) => v > 0).map((amt) {
                 final isFull = amt == _currentCustomer.utangBalance;
                 return ActionChip(
-                  label: Text(isFull ? 'Buo (${currency.format(amt)})' : currency.format(amt)),
+                  backgroundColor: Colors.white,
+                  side: const BorderSide(color: SariColors.border),
+                  label: Text(
+                    isFull ? 'Buo (${currency.format(amt)})' : currency.format(amt),
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: SariColors.ink),
+                  ),
                   onPressed: () {
                     amountController.text = amt.toStringAsFixed(0);
                   },
                 );
               }).toList(),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 14),
             TextField(
               controller: amountController,
               keyboardType: const TextInputType.numberWithOptions(decimal: true),
               autofocus: true,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: SariColors.ink),
               decoration: InputDecoration(
                 labelText: 'Halaga ng Bayad (₱)',
                 hintText: 'Hal. 100',
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
               ),
             ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF16A34A),
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(vertical: 14),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-              ),
+            const SizedBox(height: 18),
+            SariPillButton(
               onPressed: () async {
                 final val = double.tryParse(amountController.text.trim());
                 if (val != null && val > 0) {
@@ -133,12 +160,12 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
 
                   if (mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(reply), backgroundColor: const Color(0xFF16A34A)),
+                      SnackBar(content: Text(reply), backgroundColor: SariColors.green),
                     );
                   }
                 }
               },
-              child: const Text('I-record ang Bayad', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+              child: const Text('I-record ang Bayad'),
             ),
           ],
         ),
@@ -154,12 +181,14 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-      ),
-      builder: (ctx) => Padding(
+      backgroundColor: Colors.transparent,
+      builder: (ctx) => Container(
+        decoration: const BoxDecoration(
+          color: SariColors.cream,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+        ),
         padding: EdgeInsets.only(
-          bottom: MediaQuery.of(ctx).viewInsets.bottom + 20,
+          bottom: MediaQuery.of(ctx).viewInsets.bottom + 24,
           left: 20,
           right: 20,
           top: 24,
@@ -168,16 +197,33 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            Center(
+              child: Container(
+                width: 44,
+                height: 5,
+                decoration: BoxDecoration(
+                  color: SariColors.border,
+                  borderRadius: BorderRadius.circular(99),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
             Row(
               children: [
-                const CircleAvatar(
-                  backgroundColor: Color(0xFFFEE2E2),
-                  child: Icon(Icons.add_shopping_cart_rounded, color: Color(0xFFDC2626)),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: SariColors.redSoft,
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: const Icon(Icons.add_shopping_cart_rounded, color: SariColors.red, size: 24),
                 ),
                 const SizedBox(width: 12),
-                Text(
-                  'Dagdag Utang: ${_currentCustomer.name}',
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                Expanded(
+                  child: Text(
+                    'Dagdag Utang: ${_currentCustomer.name}',
+                    style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: SariColors.ink),
+                  ),
                 ),
               ],
             ),
@@ -186,29 +232,29 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
               controller: amountController,
               keyboardType: const TextInputType.numberWithOptions(decimal: true),
               autofocus: true,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: SariColors.ink),
               decoration: InputDecoration(
                 labelText: 'Halaga ng Utang (₱)',
                 hintText: 'Hal. 150',
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
               ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 10),
             TextField(
               controller: noteController,
               decoration: InputDecoration(
                 labelText: 'Mga Aytem / Note (Opsyonal)',
                 hintText: 'Hal. 2 sardinas, bigas',
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
               ),
             ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFDC2626),
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(vertical: 14),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-              ),
+            const SizedBox(height: 18),
+            SariPillButton(
+              isDanger: true,
               onPressed: () async {
                 final val = double.tryParse(amountController.text.trim());
                 if (val != null && val > 0) {
@@ -227,12 +273,12 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
 
                   if (mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(reply), backgroundColor: const Color(0xFFDC2626)),
+                      SnackBar(content: Text(reply), backgroundColor: SariColors.red),
                     );
                   }
                 }
               },
-              child: const Text('I-record ang Utang', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+              child: const Text('I-record ang Utang'),
             ),
           ],
         ),
@@ -243,94 +289,78 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final currency = NumberFormat.currency(locale: 'en_PH', symbol: '₱');
+    final isOwing = _currentCustomer.utangBalance > 0;
 
     return Scaffold(
+      backgroundColor: SariColors.cream,
       appBar: AppBar(
-        title: Text(_currentCustomer.name, style: const TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(_currentCustomer.name),
       ),
       body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator(color: SariColors.orange))
           : ListView(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               children: [
-                // Header Balance Card
+                // Customer Hero Section
                 Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.05),
-                        blurRadius: 10,
-                        offset: const Offset(0, 4),
-                      )
-                    ],
-                  ),
+                  padding: const EdgeInsets.all(22),
+                  decoration: SariTheme.cardDecoration(),
                   child: Column(
                     children: [
                       CircleAvatar(
-                        radius: 32,
-                        backgroundColor: const Color(0xFFF59E0B).withValues(alpha: 0.2),
+                        radius: 36,
+                        backgroundColor: isOwing ? SariColors.orangeSoft : SariColors.greenSoft,
                         child: Text(
-                          _currentCustomer.name.substring(0, 1),
-                          style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFFD97706)),
+                          _currentCustomer.name.isNotEmpty ? _currentCustomer.name.substring(0, 1).toUpperCase() : '?',
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: isOwing ? SariColors.orangeDark : SariColors.green,
+                          ),
                         ),
                       ),
-                      const SizedBox(height: 12),
-                      Text(
-                        _currentCustomer.name,
-                        style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                      ),
-                      if (_currentCustomer.phone != null) ...[
-                        const SizedBox(height: 4),
-                        Text(
-                          _currentCustomer.phone!,
-                          style: const TextStyle(color: Colors.black54, fontSize: 14),
-                        ),
-                      ],
-                      const Divider(height: 30),
-                      const Text(
-                        'KASALUKUYANG UTANG',
-                        style: TextStyle(letterSpacing: 1.2, fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black54),
-                      ),
-                      const SizedBox(height: 6),
+                      const SizedBox(height: 14),
                       Text(
                         currency.format(_currentCustomer.utangBalance),
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 34,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFFDC2626),
+                          color: isOwing ? SariColors.red : SariColors.green,
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: isOwing ? SariColors.redSoft : SariColors.greenSoft,
+                          borderRadius: BorderRadius.circular(999),
+                        ),
+                        child: Text(
+                          isOwing ? 'May Aktibong Utang' : 'Bayad Na Lahat',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: isOwing ? SariColors.red : SariColors.green,
+                          ),
                         ),
                       ),
                       const SizedBox(height: 20),
                       Row(
                         children: [
                           Expanded(
-                            child: ElevatedButton.icon(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF16A34A),
-                                foregroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(vertical: 12),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                              ),
-                              icon: const Icon(Icons.check_circle_outline),
-                              label: const Text('Magbayad', style: TextStyle(fontWeight: FontWeight.bold)),
-                              onPressed: _showPaymentDialog,
+                            child: SariPillButton(
+                              icon: Icons.payments_rounded,
+                              onPressed: isOwing ? _showPaymentDialog : null,
+                              child: const Text('Magbayad'),
                             ),
                           ),
-                          const SizedBox(width: 12),
+                          const SizedBox(width: 10),
                           Expanded(
-                            child: OutlinedButton.icon(
-                              style: OutlinedButton.styleFrom(
-                                foregroundColor: const Color(0xFFDC2626),
-                                side: const BorderSide(color: Color(0xFFDC2626)),
-                                padding: const EdgeInsets.symmetric(vertical: 12),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                              ),
-                              icon: const Icon(Icons.add),
-                              label: const Text('Dagdag Utang', style: TextStyle(fontWeight: FontWeight.bold)),
+                            child: SariPillButton(
+                              isSecondary: true,
+                              icon: Icons.add_circle_outline,
                               onPressed: _showAddUtangDialog,
+                              child: const Text('Dagdag Utang'),
                             ),
                           ),
                         ],
@@ -338,58 +368,73 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                     ],
                   ),
                 ),
+                const SizedBox(height: 22),
 
-                const SizedBox(height: 24),
+                // Transaction History
                 const Text(
-                  'Kasaysayan ng mga Transaksyon',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  'Kasaysayan',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: SariColors.ink),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 10),
 
                 if (_transactions.isEmpty)
-                  const Card(
-                    child: Padding(
-                      padding: EdgeInsets.all(20),
-                      child: Text('Wala pang nakaraang transaksyon si Suki.', textAlign: TextAlign.center),
+                  Container(
+                    padding: const EdgeInsets.all(24),
+                    decoration: SariTheme.cardDecoration(),
+                    child: const Center(
+                      child: Text('Wala pang transaksyon.', style: TextStyle(color: SariColors.muted)),
                     ),
                   )
-                else
-                  ..._transactions.map((t) {
-                    final isPayment = t.type == 'payment';
-                    return Card(
-                      margin: const EdgeInsets.only(bottom: 10),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: isPayment ? const Color(0xFFDCFCE7) : const Color(0xFFFEE2E2),
-                          child: Icon(
-                            isPayment ? Icons.arrow_downward_rounded : Icons.arrow_upward_rounded,
-                            color: isPayment ? const Color(0xFF16A34A) : const Color(0xFFDC2626),
-                          ),
-                        ),
-                        title: Text(
-                          isPayment ? 'Bayad' : 'Utang',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: isPayment ? const Color(0xFF16A34A) : const Color(0xFFDC2626),
-                          ),
-                        ),
-                        subtitle: Text(
-                          '${t.note ?? t.rawVoiceTranscript ?? 'Walang note'}\n${t.timestamp?.substring(0, 16) ?? ''}',
-                          style: const TextStyle(fontSize: 12),
-                        ),
-                        isThreeLine: true,
-                        trailing: Text(
-                          '${isPayment ? '-' : '+'}${currency.format(t.totalAmount)}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            color: isPayment ? const Color(0xFF16A34A) : const Color(0xFFDC2626),
-                          ),
-                        ),
+                  else
+                    Container(
+                      decoration: SariTheme.cardDecoration(),
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: _transactions.length,
+                        separatorBuilder: (_, _) => const Divider(height: 1),
+                        itemBuilder: (ctx, i) {
+                          final t = _transactions[i];
+                          final isPayment = t.type == 'payment';
+                          return ListTile(
+                            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                            leading: Container(
+                              width: 40,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                color: isPayment ? SariColors.greenSoft : SariColors.redSoft,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Icon(
+                                isPayment ? Icons.arrow_downward_rounded : Icons.arrow_upward_rounded,
+                                color: isPayment ? SariColors.green : SariColors.red,
+                              ),
+                            ),
+                            title: Text(
+                              isPayment ? 'Bayad' : 'Utang',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                                color: isPayment ? SariColors.green : SariColors.red,
+                              ),
+                            ),
+                            subtitle: Text(
+                              '${t.note ?? t.rawVoiceTranscript ?? 'Walang note'}\n${t.timestamp?.substring(0, 16) ?? ''}',
+                              style: const TextStyle(fontSize: 11, color: SariColors.muted),
+                            ),
+                            trailing: Text(
+                              '${isPayment ? '-' : '+'}${currency.format(t.totalAmount)}',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                                color: isPayment ? SariColors.green : SariColors.red,
+                              ),
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  }),
+                    ),
+                const SizedBox(height: 40),
               ],
             ),
     );

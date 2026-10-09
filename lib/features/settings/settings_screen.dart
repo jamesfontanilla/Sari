@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../core/database/database_helper.dart';
 import '../../core/services/speech_service.dart';
+import '../../core/theme/sari_theme.dart';
 
 class SettingsScreen extends StatefulWidget {
   final VoidCallback onDataReset;
@@ -13,30 +14,35 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   bool _isResetting = false;
+  bool _airplaneMode = true;
 
   void _confirmResetDialog() {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         title: const Row(
           children: [
-            Icon(Icons.restart_alt_rounded, color: Color(0xFFEA580C)),
+            Icon(Icons.restart_alt_rounded, color: SariColors.orange),
             SizedBox(width: 8),
-            Text('I-reset ang Demo Tindahan?'),
+            Text('I-reset ang Demo Tindahan?', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
           ],
         ),
         content: const Text(
-          'Ibabalik nito ang 20 starter sari-sari items at 3 demo suki (Mang Juan, Aling Rosa, Kuya Jojo) sa kanilang orihinal na halaga para sa pagsusulit ng mga hurado.',
+          'Mabubura ang lahat ng bagong record at babalik sa demo data (20 starter sari-sari items at 3 demo suki) para sa pagsubok ng mga hurado.',
+          style: TextStyle(color: SariColors.ink, fontSize: 14),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Kanselahin'),
+            child: const Text('Kanselahin', style: TextStyle(color: SariColors.muted)),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFFEA580C),
+              backgroundColor: SariColors.orange,
               foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             ),
             onPressed: () async {
               Navigator.pop(ctx);
@@ -45,20 +51,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
               widget.onDataReset();
               setState(() => _isResetting = false);
 
-              const msg = "Na-reset na ang tindahan sa demo state!";
+              const msg = "Na-reset na ang demo data!";
               SpeechService.instance.speak(msg);
 
               if (mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text(msg),
-                    backgroundColor: Color(0xFF16A34A),
+                    backgroundColor: SariColors.green,
                     behavior: SnackBarBehavior.floating,
                   ),
                 );
               }
             },
-            child: const Text('Oo, I-reset Na'),
+            child: const Text('Oo, I-reset Na', style: TextStyle(fontWeight: FontWeight.bold)),
           ),
         ],
       ),
@@ -68,139 +74,223 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: SariColors.cream,
       appBar: AppBar(
-        title: const Text('Mga Setting at Demo Tools', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: const Text('Settings'),
       ),
       body: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         children: [
-          // Demo Day Quick Reset Banner
-          Card(
-            color: const Color(0xFFFFFBEB),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-              side: const BorderSide(color: Color(0xFFFCD34D)),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(18),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Row(
-                    children: [
-                      Icon(Icons.stars_rounded, color: Color(0xFFD97706), size: 28),
-                      SizedBox(width: 10),
-                      Text(
-                        'Demo Day Tools (SM Makati)',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Color(0xFF92400E)),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    'Gamitin ang button na ito upang i-reset ang datos bago humarap sa bawat hurado.',
-                    style: TextStyle(fontSize: 13, color: Color(0xFF78350F)),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFEA580C),
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                    ),
-                    icon: _isResetting
-                        ? const SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
-                          )
-                        : const Icon(Icons.refresh_rounded),
-                    label: const Text(
-                      'I-reset ang Demo Tindahan',
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                    ),
-                    onPressed: _isResetting ? null : _confirmResetDialog,
-                  ),
-                ],
-              ),
-            ),
-          ),
-
-          const SizedBox(height: 20),
-          const Text('Katayuan ng On-Device AI', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-
-          // Offline Status Card
-          Card(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-            child: const Column(
+          // Airplane Mode Switch Row
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            decoration: SariTheme.cardDecoration(),
+            child: Row(
               children: [
-                ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: Color(0xFFDCFCE7),
-                    child: Icon(Icons.airplanemode_active_rounded, color: Color(0xFF16A34A)),
+                const Icon(Icons.airplanemode_active_rounded, color: SariColors.orange, size: 24),
+                const SizedBox(width: 12),
+                const Expanded(
+                  child: Text(
+                    'Airplane Mode Ready',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: SariColors.ink),
                   ),
-                  title: Text('100% Offline / Airplane Mode Ready', style: TextStyle(fontWeight: FontWeight.bold)),
-                  subtitle: Text('Walang cloud API calls. Lahat ng parsing at database ay nasa mismong telepono.'),
                 ),
-                Divider(height: 1),
-                ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: Color(0xFFFEF3C7),
-                    child: Icon(Icons.graphic_eq_rounded, color: Color(0xFFD97706)),
-                  ),
-                  title: Text('Speech Model: Whisper Base (141 MB)', style: TextStyle(fontWeight: FontWeight.bold)),
-                  subtitle: Text('On-device speech recognition para sa Tagalog at Taglish.'),
-                  trailing: Chip(label: Text('Installed', style: TextStyle(fontSize: 11, color: Colors.green))),
-                ),
-                Divider(height: 1),
-                ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: Color(0xFFE0E7FF),
-                    child: Icon(Icons.psychology_rounded, color: Color(0xFF4338CA)),
-                  ),
-                  title: Text('Language Model: Llama 3.2 3B (1.9 GB)', style: TextStyle(fontWeight: FontWeight.bold)),
-                  subtitle: Text('Local GGUF quantized model para sa business insights.'),
-                  trailing: Chip(label: Text('Installed', style: TextStyle(fontSize: 11, color: Colors.green))),
-                ),
-                Divider(height: 1),
-                ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: Color(0xFFF3E8FF),
-                    child: Icon(Icons.camera_alt_rounded, color: Color(0xFF7E22CE)),
-                  ),
-                  title: Text('Vision Engine: Snap & Track', style: TextStyle(fontWeight: FontWeight.bold)),
-                  subtitle: Text('Barcode at shelf visual detection na konektado sa SQLite.'),
-                  trailing: Chip(label: Text('Active', style: TextStyle(fontSize: 11, color: Colors.green))),
+                Switch(
+                  value: _airplaneMode,
+                  activeThumbColor: SariColors.orange,
+                  onChanged: (val) {
+                    setState(() => _airplaneMode = val);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(_airplaneMode ? 'Aktibo ang 100% Offline mode!' : 'Online simulation mode.'),
+                        backgroundColor: SariColors.green,
+                        duration: const Duration(seconds: 1),
+                        behavior: SnackBarBehavior.floating,
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
           ),
+          const SizedBox(height: 16),
 
-          const SizedBox(height: 20),
-          const Text('Tungkol sa Proyekto', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-
-          Card(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-            child: const Padding(
-              padding: EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('🏪 Sari — Sari-Sari Business Brain', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                  SizedBox(height: 4),
-                  Text('AppBuildersPH Hackathon 2026 • Local AI Theme', style: TextStyle(color: Colors.black54, fontSize: 13)),
-                  SizedBox(height: 12),
-                  Text(
-                    'Binuo para sa 1.3 milyong may-ari ng sari-sari store sa Pilipinas na nangangailangan ng maaasahan, libre, at 100% offline na AI assistant sa kanilang bulsa.',
-                    style: TextStyle(fontSize: 13, height: 1.4),
-                  ),
-                ],
+          // 100% Offline Mascot Card
+          Container(
+            padding: const EdgeInsets.all(18),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [Color(0xFFFFF7ED), Color(0xFFFFEDD5)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
+              borderRadius: BorderRadius.circular(22),
+              border: Border.all(color: const Color(0xFFFED7AA)),
+              boxShadow: const [
+                BoxShadow(color: Color(0x1078481E), blurRadius: 14, offset: Offset(0, 4)),
+              ],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Gumagana pa rin kahit walang internet!',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              color: SariColors.ink,
+                              height: 1.25,
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          ...['Voice commands', 'Camera scanning', 'AI responses', 'Full SQLite database'].map(
+                            (item) => Padding(
+                              padding: const EdgeInsets.only(bottom: 6),
+                              child: Row(
+                                children: [
+                                  const Icon(Icons.check_circle_rounded, color: SariColors.green, size: 16),
+                                  const SizedBox(width: 6),
+                                  Text(item, style: const TextStyle(fontSize: 13, color: SariColors.inkLight)),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SariMascot(pose: SariPose.offline, size: 110),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(999),
+                    border: Border.all(color: SariColors.border),
+                  ),
+                  child: const Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('🔒 ', style: TextStyle(fontSize: 12)),
+                      Text(
+                        '100% Offline · No Internet Needed',
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11, color: SariColors.orangeDark),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
+          const SizedBox(height: 20),
+
+          // Group: Data
+          const Text('Data & Tindahan', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: SariColors.ink)),
+          const SizedBox(height: 8),
+          Container(
+            decoration: SariTheme.cardDecoration(),
+            child: Column(
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.file_download_outlined, color: SariColors.orange),
+                  title: const Text('I-export ang data (JSON)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                  subtitle: const Text('Naka-save lang sa phone mo', style: TextStyle(fontSize: 12, color: SariColors.muted)),
+                  trailing: const Icon(Icons.chevron_right, size: 18, color: SariColors.muted),
+                  onTap: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Na-save ang backup sa phone mo.'),
+                        backgroundColor: SariColors.green,
+                        behavior: SnackBarBehavior.floating,
+                      ),
+                    );
+                  },
+                ),
+                const Divider(height: 1),
+                ListTile(
+                  leading: _isResetting
+                      ? const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(color: SariColors.orange, strokeWidth: 2),
+                        )
+                      : const Icon(Icons.refresh_rounded, color: SariColors.orange),
+                  title: const Text('I-reset ang demo data', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                  subtitle: const Text('Babalik sa sample na tindahan (Demo Day)', style: TextStyle(fontSize: 12, color: SariColors.muted)),
+                  trailing: const Icon(Icons.chevron_right, size: 18, color: SariColors.muted),
+                  onTap: _isResetting ? null : _confirmResetDialog,
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 20),
+
+          // Group: Tutorial
+          const Text('Gabay at Modelo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: SariColors.ink)),
+          const SizedBox(height: 8),
+          Container(
+            decoration: SariTheme.cardDecoration(),
+            child: Column(
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.mic_external_on_rounded, color: SariColors.orange),
+                  title: const Text('Speech Engine: Whisper Base', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                  subtitle: const Text('On-device Tagalog / Taglish speech recognition', style: TextStyle(fontSize: 12, color: SariColors.muted)),
+                  trailing: const Chip(
+                    label: Text('Ready', style: TextStyle(fontSize: 10, color: SariColors.green, fontWeight: FontWeight.bold)),
+                    padding: EdgeInsets.zero,
+                    visualDensity: VisualDensity.compact,
+                  ),
+                ),
+                const Divider(height: 1),
+                ListTile(
+                  leading: const Icon(Icons.psychology_outlined, color: SariColors.orange),
+                  title: const Text('Language Model: Llama 3.2 3B', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                  subtitle: const Text('GGUF Quantized local reasoning engine', style: TextStyle(fontSize: 12, color: SariColors.muted)),
+                  trailing: const Chip(
+                    label: Text('Ready', style: TextStyle(fontSize: 10, color: SariColors.green, fontWeight: FontWeight.bold)),
+                    padding: EdgeInsets.zero,
+                    visualDensity: VisualDensity.compact,
+                  ),
+                ),
+                const Divider(height: 1),
+                ListTile(
+                  leading: const Icon(Icons.play_circle_outline_rounded, color: SariColors.orange),
+                  title: const Text('Ipakita ulit ang tutorial', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                  subtitle: const Text('3 hakbang lang para magsimula', style: TextStyle(fontSize: 12, color: SariColors.muted)),
+                  trailing: const Icon(Icons.chevron_right, size: 18, color: SariColors.muted),
+                  onTap: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Sari Tutorial: 1. Pindutin ang Mic. 2. Sabihin ang utang/benta. 3. I-tap ang I-record!'),
+                        backgroundColor: SariColors.orange,
+                        behavior: SnackBarBehavior.floating,
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 24),
+
+          // Footer
+          const Center(
+            child: Text(
+              'Sari · v1.0\nWalang login · Walang ads · Libre habambuhay',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: SariColors.muted, fontSize: 12, height: 1.4),
+            ),
+          ),
+          const SizedBox(height: 40),
         ],
       ),
     );

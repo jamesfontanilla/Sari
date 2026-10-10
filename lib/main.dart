@@ -12,6 +12,7 @@ import 'features/scanner/scanner_screen.dart';
 import 'features/ledger/customer_detail_screen.dart';
 import 'features/settings/settings_screen.dart';
 import 'features/onboarding/welcome_screen.dart';
+import 'features/inventory/pamamalengke_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -711,17 +712,45 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           ),
                         ],
                       ),
-                      TextButton(
-                        onPressed: () => widget.onNavigateToTab(2),
-                        child: const Row(
-                          children: [
-                            Text(
-                              'Tingnan lahat',
-                              style: TextStyle(color: SariColors.orange, fontWeight: FontWeight.bold, fontSize: 13),
+                      Row(
+                        children: [
+                          TextButton.icon(
+                            style: TextButton.styleFrom(
+                              backgroundColor: SariColors.orangeSoft,
+                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(999)),
                             ),
-                            Icon(Icons.chevron_right, size: 16, color: SariColors.orange),
-                          ],
-                        ),
+                            icon: const Icon(Icons.shopping_cart_outlined, size: 14, color: SariColors.orangeDark),
+                            label: Text(
+                              'Palengke List',
+                              style: SariTheme.heading(fontSize: 12, fontWeight: FontWeight.w700, color: SariColors.orangeDark),
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (ctx) => PamamalengkeScreen(onRestockSaved: () {
+                                    widget.onRefreshNeeded();
+                                    loadDashboardData();
+                                  }),
+                                ),
+                              );
+                            },
+                          ),
+                          const SizedBox(width: 4),
+                          TextButton(
+                            onPressed: () => widget.onNavigateToTab(2),
+                            child: const Row(
+                              children: [
+                                Text(
+                                  'Lahat',
+                                  style: TextStyle(color: SariColors.orange, fontWeight: FontWeight.bold, fontSize: 13),
+                                ),
+                                Icon(Icons.chevron_right, size: 16, color: SariColors.orange),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -1250,6 +1279,21 @@ class _InventoryScreenState extends State<InventoryScreen> {
         title: const Text('Paninda sa Tindahan'),
         actions: [
           IconButton(
+            icon: const Icon(Icons.shopping_cart_checkout_rounded, color: SariColors.orange, size: 24),
+            tooltip: 'Pamamalengke Planner',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (ctx) => PamamalengkeScreen(onRestockSaved: () {
+                    widget.onRefreshNeeded();
+                    loadProducts();
+                  }),
+                ),
+              );
+            },
+          ),
+          IconButton(
             icon: const Icon(Icons.qr_code_scanner_rounded, color: SariColors.orange, size: 26),
             tooltip: 'Snap & Track',
             onPressed: _openCameraScanner,
@@ -1260,20 +1304,44 @@ class _InventoryScreenState extends State<InventoryScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         children: [
           // Filter Chips
-          Row(
-            children: [
-              SariFilterChip(
-                label: 'Lahat (${_products.length})',
-                isSelected: _filter == 'all',
-                onTap: () => setState(() => _filter = 'all'),
-              ),
-              const SizedBox(width: 8),
-              SariFilterChip(
-                label: 'Low Stock (${lowProds.length})',
-                isSelected: _filter == 'low',
-                onTap: () => setState(() => _filter = 'low'),
-              ),
-            ],
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                SariFilterChip(
+                  label: 'Lahat (${_products.length})',
+                  isSelected: _filter == 'all',
+                  onTap: () => setState(() => _filter = 'all'),
+                ),
+                const SizedBox(width: 8),
+                SariFilterChip(
+                  label: 'Low Stock (${lowProds.length})',
+                  isSelected: _filter == 'low',
+                  onTap: () => setState(() => _filter = 'low'),
+                ),
+                const SizedBox(width: 8),
+                ActionChip(
+                  avatar: const Icon(Icons.shopping_cart_outlined, size: 15, color: SariColors.orangeDark),
+                  backgroundColor: SariColors.orangeSoft,
+                  side: const BorderSide(color: SariColors.orange),
+                  label: Text(
+                    'Pamamalengke Planner',
+                    style: SariTheme.heading(fontSize: 12, fontWeight: FontWeight.w700, color: SariColors.orangeDark),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (ctx) => PamamalengkeScreen(onRestockSaved: () {
+                          widget.onRefreshNeeded();
+                          loadProducts();
+                        }),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 16),
 

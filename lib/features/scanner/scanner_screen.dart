@@ -583,6 +583,219 @@ class _ScannerScreenState extends State<ScannerScreen> {
     ).then((_) => setState(() => _isProcessing = false));
   }
 
+  void _showExactCountDialog(Product item, Function(int newCount) onCountUpdated) {
+    final controller = TextEditingController(text: '${item.quantity}');
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: Text(item.name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Aktwal na bilang sa istante:', style: TextStyle(fontSize: 13, color: SariColors.muted)),
+            const SizedBox(height: 10),
+            TextField(
+              controller: controller,
+              keyboardType: TextInputType.number,
+              autofocus: true,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: SariColors.ink),
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: SariColors.cream,
+                suffixText: 'piraso',
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text('Kanselahin', style: TextStyle(color: SariColors.muted)),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: SariColors.orange,
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            ),
+            onPressed: () async {
+              final val = int.tryParse(controller.text.trim()) ?? item.quantity;
+              await DatabaseHelper.instance.setProductQuantity(item.id!, val);
+              await AudioFeedbackService.instance.playKaChing();
+              onCountUpdated(val);
+              if (ctx.mounted) Navigator.pop(ctx);
+            },
+            child: const Text('I-save'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showManualShelfInputDialog() async {
+    final products = await DatabaseHelper.instance.getProducts();
+    if (!mounted) return;
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: SariColors.cream,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (ctx) => StatefulBuilder(
+        builder: (sheetCtx, setSheetState) {
+          return Padding(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(ctx).viewInsets.bottom + 16,
+              left: 16,
+              right: 16,
+              top: 16,
+            ),
+            child: SizedBox(
+              height: MediaQuery.of(ctx).size.height * 0.75,
+              child: Column(
+                children: [
+                  Center(
+                    child: Container(
+                      width: 44,
+                      height: 5,
+                      decoration: BoxDecoration(
+                        color: SariColors.border,
+                        borderRadius: BorderRadius.circular(99),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 14),
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: SariColors.orangeSoft,
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        child: const Icon(Icons.shelves, color: SariColors.orangeDark, size: 24),
+                      ),
+                      const SizedBox(width: 12),
+                      const Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Manu-manong Bilang sa Istante',
+                              style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: SariColors.ink),
+                            ),
+                            Text(
+                              'I-update ang bilang o pindutin ang + / −',
+                              style: TextStyle(fontSize: 12, color: SariColors.muted),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  const Divider(height: 1),
+                  Expanded(
+                    child: ListView.separated(
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      itemCount: products.length,
+                      separatorBuilder: (_, _) => const SizedBox(height: 8),
+                      itemBuilder: (context, i) {
+                        final item = products[i];
+                        return Container(
+                          decoration: SariTheme.cardDecoration(),
+                          child: ListTile(
+                            contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
+                            title: Text(
+                              item.name,
+                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: SariColors.ink),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            subtitle: Text(
+                              'Kasalukuyang stock: ${item.quantity} piraso',
+                              style: const TextStyle(fontSize: 12, color: SariColors.muted),
+                            ),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton.filledTonal(
+                                  visualDensity: VisualDensity.compact,
+                                  icon: const Icon(Icons.remove, size: 16),
+                                  onPressed: () async {
+                                    if (item.quantity > 0) {
+                                      await DatabaseHelper.instance.updateProductQuantity(item.id!, -1);
+                                      setSheetState(() {
+                                        products[i] = item.copyWith(quantity: item.quantity - 1);
+                                      });
+                                    }
+                                  },
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                                  constraints: const BoxConstraints(minWidth: 32),
+                                  child: Text(
+                                    '${item.quantity}',
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: SariColors.ink),
+                                  ),
+                                ),
+                                IconButton.filledTonal(
+                                  visualDensity: VisualDensity.compact,
+                                  icon: const Icon(Icons.add, size: 16),
+                                  onPressed: () async {
+                                    await DatabaseHelper.instance.updateProductQuantity(item.id!, 1);
+                                    setSheetState(() {
+                                      products[i] = item.copyWith(quantity: item.quantity + 1);
+                                    });
+                                    AudioFeedbackService.instance.playKaChing();
+                                  },
+                                ),
+                                IconButton(
+                                  visualDensity: VisualDensity.compact,
+                                  icon: const Icon(Icons.edit_outlined, color: SariColors.orange, size: 20),
+                                  onPressed: () {
+                                    _showExactCountDialog(item, (newCount) {
+                                      setSheetState(() {
+                                        products[i] = item.copyWith(quantity: newCount);
+                                      });
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  SariPillButton(
+                    onPressed: () {
+                      Navigator.pop(ctx);
+                      final msg = "Na-save ang manu-manong bilang sa istante!";
+                      SpeechService.instance.speak(msg);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(msg), backgroundColor: SariColors.green),
+                      );
+                      Navigator.pop(context, true);
+                    },
+                    child: const Text('Tapos na'),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -592,6 +805,11 @@ class _ScannerScreenState extends State<ScannerScreen> {
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
         actions: [
+          IconButton(
+            tooltip: 'Manu-manong Ilagay',
+            icon: const Icon(Icons.edit_note_rounded, color: Colors.white),
+            onPressed: _showManualShelfInputDialog,
+          ),
           IconButton(
             icon: ValueListenableBuilder(
               valueListenable: _controller,
@@ -700,11 +918,33 @@ class _ScannerScreenState extends State<ScannerScreen> {
                   ),
                 ),
                 const SizedBox(height: 12),
-                SariPillButton(
-                  icon: _mode == 'shelf' ? Icons.camera_alt_rounded : Icons.receipt_long_rounded,
-                  onPressed: _mode == 'shelf' ? _simulateShelfVisionScan : _simulateReceiptScan,
-                  child: Text(_mode == 'shelf' ? '📸 I-snap ang Istante' : '📄 I-scan ang Resibo'),
-                ),
+                if (_mode == 'shelf')
+                  Row(
+                    children: [
+                      Expanded(
+                        child: SariPillButton(
+                          icon: Icons.camera_alt_rounded,
+                          onPressed: _simulateShelfVisionScan,
+                          child: const Text('📸 I-snap'),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: SariPillButton(
+                          isSecondary: true,
+                          icon: Icons.edit_note_rounded,
+                          onPressed: _showManualShelfInputDialog,
+                          child: const Text('✏️ Manu-mano'),
+                        ),
+                      ),
+                    ],
+                  )
+                else
+                  SariPillButton(
+                    icon: Icons.receipt_long_rounded,
+                    onPressed: _simulateReceiptScan,
+                    child: const Text('📄 I-scan ang Resibo'),
+                  ),
               ],
             ),
           ),

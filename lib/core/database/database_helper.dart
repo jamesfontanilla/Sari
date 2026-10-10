@@ -159,6 +159,14 @@ class DatabaseHelper {
     );
   }
 
+  Future<int> setProductQuantity(int id, int exactQuantity) async {
+    final db = await instance.database;
+    return await db.rawUpdate(
+      'UPDATE products SET quantity = MAX(0, ?) WHERE id = ?',
+      [exactQuantity, id]
+    );
+  }
+
   // Customers
   Future<List<Customer>> getCustomers() async {
     final db = await instance.database;

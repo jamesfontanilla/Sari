@@ -234,48 +234,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           const SizedBox(height: 20),
 
-          // Group: Tutorial
-          const Text('Gabay at Modelo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: SariColors.ink)),
+          // Group: Tulong at Gabay
+          const Text('Tulong at Gabay', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: SariColors.ink)),
           const SizedBox(height: 8),
           Container(
             decoration: SariTheme.cardDecoration(),
-            child: Column(
-              children: [
-                ListTile(
-                  leading: const Icon(Icons.mic_external_on_rounded, color: SariColors.orange),
-                  title: const Text('Speech Engine: Whisper Base', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-                  subtitle: const Text('On-device Tagalog / Taglish speech recognition', style: TextStyle(fontSize: 12, color: SariColors.muted)),
-                  trailing: const Chip(
-                    label: Text('Ready', style: TextStyle(fontSize: 10, color: SariColors.green, fontWeight: FontWeight.bold)),
-                    padding: EdgeInsets.zero,
-                    visualDensity: VisualDensity.compact,
-                  ),
-                ),
-                const Divider(height: 1),
-                ListTile(
-                  leading: const Icon(Icons.psychology_outlined, color: SariColors.orange),
-                  title: const Text('Language Model: Llama 3.2 3B', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-                  subtitle: const Text('GGUF Quantized local reasoning engine', style: TextStyle(fontSize: 12, color: SariColors.muted)),
-                  trailing: const Chip(
-                    label: Text('Ready', style: TextStyle(fontSize: 10, color: SariColors.green, fontWeight: FontWeight.bold)),
-                    padding: EdgeInsets.zero,
-                    visualDensity: VisualDensity.compact,
-                  ),
-                ),
-                const Divider(height: 1),
-                ListTile(
-                  leading: const Icon(Icons.play_circle_outline_rounded, color: SariColors.orange),
-                  title: const Text('Ipakita ulit ang tutorial', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-                  subtitle: const Text('3 hakbang lang para magsimula', style: TextStyle(fontSize: 12, color: SariColors.muted)),
-                  trailing: const Icon(Icons.chevron_right, size: 18, color: SariColors.muted),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (ctx) => const OnboardingScreen(isReplay: true)),
-                    );
-                  },
-                ),
-              ],
+            child: ListTile(
+              leading: const Icon(Icons.play_circle_outline_rounded, color: SariColors.orange),
+              title: const Text('Ipakita ulit ang gabay', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+              subtitle: const Text('3 simpleng hakbang sa paggamit kay Sari', style: TextStyle(fontSize: 12, color: SariColors.muted)),
+              trailing: const Icon(Icons.chevron_right, size: 18, color: SariColors.muted),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (ctx) => const OnboardingScreen(isReplay: true)),
+                );
+              },
             ),
           ),
           const SizedBox(height: 24),

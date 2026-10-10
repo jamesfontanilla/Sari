@@ -50,4 +50,28 @@ class Product {
   }
 
   bool get isLowStock => quantity <= reorderThreshold;
+
+  Product copyWith({
+    int? id,
+    String? name,
+    String? category,
+    double? buyPrice,
+    double? sellPrice,
+    int? quantity,
+    int? reorderThreshold,
+    String? barcode,
+    String? createdAt,
+  }) {
+    return Product(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      category: category ?? this.category,
+      buyPrice: buyPrice ?? this.buyPrice,
+      sellPrice: sellPrice ?? this.sellPrice,
+      quantity: quantity ?? this.quantity,
+      reorderThreshold: reorderThreshold ?? this.reorderThreshold,
+      barcode: barcode ?? this.barcode,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
 }

@@ -41,7 +41,7 @@ Across the Philippines, over **1.3 million *sari-sari stores*** power the neighb
 | **Technologies & Frameworks**| Flutter 3.24+, Dart, SQLite (`sqflite`), Android NDK (ARM64), `flutter_tts`, `mobile_scanner`, `audioplayers`, `shared_preferences`. |
 | **APIs and Cloud Services** | **None (0).** Zero external API keys, zero cloud endpoints, zero remote telemetry. |
 | **Existing Code & Assets** | Custom mascot animations/illustrations (`assets/sari/`), 20 pre-seeded Philippine FMCG barcodes, open-source icons. |
-| **AI Development Tools** | Antigravity (DeepMind), Cursor, Claude 3.7 Sonnet, Gemini Code Assist. |
+| **AI Development Tools** | Antigravity (Google DeepMind) and Gemini Code Assist. |
 
 ---
 

@@ -23,7 +23,7 @@
 | | **Technologies & Frameworks** | Flutter 3.24+, Dart, SQLite (`sqflite`), Android NDK (ARM64), `flutter_tts`, `mobile_scanner`, `audioplayers`, `shared_preferences`. |
 | | **APIs & Cloud Services** | **None (0).** Zero external API keys, zero cloud endpoints, zero remote telemetry. |
 | | **Existing Code & Assets** | Custom Sari mascot animations & illustrations (`assets/sari/`), 20 pre-seeded authentic Philippine FMCG barcodes, standard open-source Flutter plugins. |
-| | **AI Development Tools** | Antigravity, Cursor, Claude 3.7 Sonnet, Gemini Code Assist (used for code pairing & rapid UI iteration). |
+| | **AI Development Tools** | Antigravity (Google DeepMind) and Gemini Code Assist (used for code pairing & rapid UI iteration). |
 
 ---
 
@@ -113,7 +113,7 @@ Every computational component in Sari executes directly on the physical smartpho
 
 ### AI Development Tools
 - **Antigravity (Google DeepMind):** Primary AI agentic pairing environment for architecture planning, test orchestration, and live Android device deployment.
-- **Cursor / Claude 3.7 Sonnet / Gemini 2.5 Flash:** Used during the hackathon for rapid Dart scaffolding, regex optimization, and test case generation.
+- **Gemini Code Assist:** Used during the hackathon for rapid Dart scaffolding, regex optimization, and test case generation.
 
 ---
 

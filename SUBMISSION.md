@@ -12,7 +12,7 @@
 | :--- | :--- | :--- |
 | **The Project** | **Project Name** | **Sari** — The Sari-Sari Business Brain |
 | | **Short Description** | 100% offline, voice-first AI assistant and smart ledger empowering Philippine sari-sari store owners to track sales, manage *utang*, count inventory, and plan restocks with zero cloud dependencies. |
-| | **Team Members** | **James Fontanilla** ([@jamesfontanilla](https://github.com/jamesfontanilla)) |
+| | **Team Members** | **James Fontanilla** ([@jamesfontanilla](https://github.com/jamesfontanilla)) — Lead Developer<br>**Melfred Bernabe** ([@caramel-123](https://github.com/caramel-123)) — Lead Designer |
 | | **Public GitHub Repository** | [https://github.com/jamesfontanilla/Sari](https://github.com/jamesfontanilla/Sari) |
 | **The Proof** | **Demo Video** | *[Insert Demo Video Link Here — e.g., YouTube / Google Drive / Loom / MP4]* |
 | | **X / LinkedIn Video URL** | *[Insert X / LinkedIn Video Post URL Here]* |
@@ -36,7 +36,8 @@
 **Sari** transforms any low-cost Android phone into an intelligent, voice-driven **Point-of-Sale (POS), inventory tracker, and business brain** tailored specifically for the 1.3 million Philippine *sari-sari* store owners (*Aling Maria*). Operating **100% offline in Airplane Mode**, Sari speaks and understands natural colloquial Filipino/Taglish, keeping small store owners in total control of their livelihood with **zero cloud dependencies, zero data costs, and complete financial privacy**.
 
 ### Team Members
-- **James Fontanilla** — Lead Developer & Designer ([GitHub: @jamesfontanilla](https://github.com/jamesfontanilla))
+- **James Fontanilla** — Lead Developer ([GitHub: @jamesfontanilla](https://github.com/jamesfontanilla))
+- **Melfred Bernabe** ([caramel-123](https://github.com/caramel-123)) — Lead Designer
 
 ### Public GitHub Repository
 - **Repository URL:** [https://github.com/jamesfontanilla/Sari](https://github.com/jamesfontanilla/Sari)

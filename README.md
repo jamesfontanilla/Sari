@@ -27,7 +27,7 @@ Across the Philippines, over **1.3 million *sari-sari stores*** power the neighb
 | :--- | :--- |
 | **Project Name** | **Sari** — The Sari-Sari Business Brain |
 | **Short Description** | 100% offline, voice-driven AI assistant and smart ledger for Philippine micro-retailers to track sales, utang, inventory, and market restocks in colloquial Tagalog. |
-| **Team Members** | **James Fontanilla** ([@jamesfontanilla](https://github.com/jamesfontanilla)) |
+| **Team Members** | **James Fontanilla** ([@jamesfontanilla](https://github.com/jamesfontanilla)) — Lead Developer<br>**Melfred Bernabe** ([@caramel-123](https://github.com/caramel-123)) — Lead Designer |
 | **Public GitHub Repository** | [https://github.com/jamesfontanilla/Sari](https://github.com/jamesfontanilla/Sari) |
 | **Demo Video** | *[Insert Demo Video Link Here — e.g., YouTube / Google Drive / Loom]* |
 | **X / LinkedIn Video URL** | *[Insert X / LinkedIn Post URL Here]* |
@@ -197,7 +197,8 @@ lib/
 
 ## 👥 Hackathon Team & Credits
 
-* **Developer & Designer:** [James Fontanilla](https://github.com/jamesfontanilla)
+* **James Fontanilla** — Lead Developer ([@jamesfontanilla](https://github.com/jamesfontanilla))
+* **Melfred Bernabe** ([caramel-123](https://github.com/caramel-123)) — Lead Designer
 * **Hackathon:** AppBuildersPH Hackathon 2026
 * **Theme:** Local AI & On-Device Micro-Commerce
 

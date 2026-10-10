@@ -14,7 +14,8 @@
 | | **Short Description** | 100% offline, voice-first AI assistant and smart ledger empowering Philippine sari-sari store owners to track sales, manage *utang*, count inventory, and plan restocks with zero cloud dependencies. |
 | | **Team Members** | **James Fontanilla** ([@jamesfontanilla](https://github.com/jamesfontanilla)) — Lead Developer<br>**Melfred Bernabe** ([@caramel-123](https://github.com/caramel-123)) — Lead Designer |
 | | **Public GitHub Repository** | [https://github.com/jamesfontanilla/Sari](https://github.com/jamesfontanilla/Sari) |
-| **The Proof** | **Demo Video** | *[Insert Demo Video Link Here — e.g., YouTube / Google Drive / Loom / MP4]* |
+| **The Proof** | **Pre-built Demo APK** | [**Download Sari APK on Google Drive**](https://drive.google.com/file/d/1Lk5Ypf8L4ZXcOElyQK6olnAms0Qyli1w/view?usp=sharing) |
+| | **Demo Video** | *[Insert Demo Video Link Here — e.g., YouTube / Google Drive / Loom / MP4]* |
 | | **X / LinkedIn Video URL** | *[Insert X / LinkedIn Video Post URL Here]* |
 | | **What Runs Locally** | 100% of speech recognition, Tagalog NLP parsing, text-to-speech synthesis, barcode scanning, LLM reasoning, SQLite queries, and business telemetry. |
 | | **What Requires Internet** | **0% (Absolutely Nothing).** Works completely in Airplane Mode with SIM/Wi-Fi disabled. |
@@ -47,6 +48,11 @@
 ---
 
 ## 🎥 2. The Proof
+
+### Pre-built Demo APK (Quick Install for Evaluators)
+- **Direct Download Link:** **[Download Sari Demo APK on Google Drive](https://drive.google.com/file/d/1Lk5Ypf8L4ZXcOElyQK6olnAms0Qyli1w/view?usp=sharing)**
+- **Architecture:** Android ARM64 (API 29+)
+- **Verification Note:** Can be installed directly on any physical Android device. Once installed, activate **Airplane Mode** to verify 100% offline functionality.
 
 ### Demo Video
 - **Link:** *[Insert Demo Video Link Here — e.g., YouTube / Google Drive / Loom]*
@@ -145,6 +151,15 @@ SaaS software powered by commercial cloud AI APIs charges \$0.01 to \$0.06 per q
 
 ## 🛠️ How to Test and Verify (Step-by-Step for Judges)
 
+### 📲 Option A: Direct APK Install (Fastest)
+1. Download the pre-built APK directly to your Android device:  
+   👉 **[Download Sari Demo APK (Google Drive)](https://drive.google.com/file/d/1Lk5Ypf8L4ZXcOElyQK6olnAms0Qyli1w/view?usp=sharing)**
+2. Tap the APK file to install on your Android device.
+3. Turn on **Airplane Mode** and launch **Sari**!
+
+---
+
+### 💻 Option B: Build and Run from Source
 1. **Clone the Repository:**
    ```bash
    git clone https://github.com/jamesfontanilla/Sari.git
@@ -155,15 +170,19 @@ SaaS software powered by commercial cloud AI APIs charges \$0.01 to \$0.06 per q
    flutter pub get
    flutter run -d <your-device-id>
    ```
-3. **Turn On Airplane Mode:**
+
+---
+
+### 🧪 Live Verification Steps (In Airplane Mode):
+1. **Turn On Airplane Mode:**
    - Swipe down on your phone's notification shade and enable **Airplane Mode** (disable Wi-Fi and Cellular Data).
-4. **Test Voice POS:**
+2. **Test Voice POS:**
    - Tap the orange **"Sabihin kay Sari"** button.
    - Say: *"Si Mang Juan utang 150 sardinas"*
    - Observe instant transcription, SQLite write, *ka-ching!* chime, and Filipino voice response.
-5. **Test Pamamalengke Planner:**
+3. **Test Pamamalengke Planner:**
    - Tap **"Palengke List"** on the dashboard.
    - Enter your budget under *"Dala kong Pera"* (e.g., ₱2,000).
    - Check off purchased items and tap *"Nabili Ko Na Lahat! (I-restock)"* to update inventory in bulk.
-6. **Test Suki Utang Ledger:**
+4. **Test Suki Utang Ledger:**
    - Tap the **Utang** tab to see real-time customer balances and tap quick repayment chips (**₱50**, **₱100**, **₱200**, **Buo**).

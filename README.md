@@ -6,6 +6,7 @@
 [![Flutter](https://img.shields.io/badge/Flutter-3.24+-02569B?logo=flutter)](https://flutter.dev)
 [![Android](https://img.shields.io/badge/Android-10+-3DDC84?logo=android)](https://developer.android.com)
 [![Offline First](https://img.shields.io/badge/Network-100%25_Offline_Airplane_Mode-16A34A)](#-the-airplane-mode-guarantee)
+[![Download APK](https://img.shields.io/badge/Download_APK-Google_Drive-EA4335?logo=googledrive&logoColor=white)](https://drive.google.com/file/d/1Lk5Ypf8L4ZXcOElyQK6olnAms0Qyli1w/view?usp=sharing)
 [![License](https://img.shields.io/badge/License-MIT-EA580C)](LICENSE)
 [![Hackathon Submission](https://img.shields.io/badge/Hackathon-AppBuildersPH_2026-6366F1)](SUBMISSION.md)
 
@@ -17,7 +18,9 @@ Across the Philippines, over **1.3 million *sari-sari stores*** power the neighb
 
 **Sari** transforms any low-cost Android smartphone into an intelligent, voice-driven **Point-of-Sale (POS), inventory tracker, and business brain**. Operating **100% offline in Airplane Mode**, Sari speaks and understands natural colloquial Filipino/Taglish, keeping small store owners in total control of their livelihood with **zero cloud dependencies, zero data costs, and complete financial privacy**.
 
-👉 **Looking for the official submission checklist? See [SUBMISSION.md](SUBMISSION.md).**
+> 📲 **Judges & Evaluators Quick Install:**  
+> **[📥 Download Sari Demo APK (Google Drive)](https://drive.google.com/file/d/1Lk5Ypf8L4ZXcOElyQK6olnAms0Qyli1w/view?usp=sharing)** — Install directly on any Android 10+ device and test in 100% Airplane Mode!  
+> 👉 **Official Hackathon Submission Details: See [SUBMISSION.md](SUBMISSION.md).**
 
 ---
 
@@ -29,6 +32,7 @@ Across the Philippines, over **1.3 million *sari-sari stores*** power the neighb
 | **Short Description** | 100% offline, voice-driven AI assistant and smart ledger for Philippine micro-retailers to track sales, utang, inventory, and market restocks in colloquial Tagalog. |
 | **Team Members** | **James Fontanilla** ([@jamesfontanilla](https://github.com/jamesfontanilla)) — Lead Developer<br>**Melfred Bernabe** ([@caramel-123](https://github.com/caramel-123)) — Lead Designer |
 | **Public GitHub Repository** | [https://github.com/jamesfontanilla/Sari](https://github.com/jamesfontanilla/Sari) |
+| **Pre-built Demo APK** | [**Download Sari APK on Google Drive**](https://drive.google.com/file/d/1Lk5Ypf8L4ZXcOElyQK6olnAms0Qyli1w/view?usp=sharing) |
 | **Demo Video** | *[Insert Demo Video Link Here — e.g., YouTube / Google Drive / Loom]* |
 | **X / LinkedIn Video URL** | *[Insert X / LinkedIn Post URL Here]* |
 | **What Runs Locally** | 100% of speech recognition, Tagalog NLP parsing, Filipino TTS synthesis, barcode vision scanning, LLM reasoning, SQLite queries, and telemetry analytics. |
@@ -166,13 +170,23 @@ lib/
 ---
 
 ## 🚀 Getting Started
+ 
+### 📲 Option A: Direct APK Install (Recommended for Judges & Quick Testing)
+1. Download the pre-compiled debug APK directly to your Android device:  
+   👉 **[Download Sari APK (Google Drive)](https://drive.google.com/file/d/1Lk5Ypf8L4ZXcOElyQK6olnAms0Qyli1w/view?usp=sharing)**
+2. Tap the downloaded APK to install (enable *"Install unknown apps"* if prompted).
+3. Turn on **Airplane Mode** and launch **Sari**!
 
-### Prerequisites
+---
+
+### 💻 Option B: Build & Run from Source
+
+#### Prerequisites
 * Flutter SDK (3.24+ recommended)
 * Android SDK (API 34+)
 * Physical Android phone (Developer Options & USB Debugging enabled)
 
-### Running on Physical Device
+#### Running on Physical Device
 
 1. **Clone the repository:**
    ```bash
